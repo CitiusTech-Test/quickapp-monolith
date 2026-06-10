@@ -1,0 +1,81 @@
+@import '../styles/custom-variables';
+
+$table-bg-scale: 0% !default; // Fix for deprecation: https://sass-lang.com/d/function-units
+
+@import 'bootswatch/dist/solar/variables';
+@import 'bootstrap/scss/bootstrap';
+@import 'bootswatch_fix/solar'; // import from 'bootswatch/dist/solar/bootswatch' when font import issue is fixed
+
+@import 'app-theme';
+
+.ngx-datatable.material {
+  &.table-striped {
+    .datatable-row-even {
+      background: $dark;
+    }
+  }
+
+  // Override footer and summary row styles for dark theme visibility
+  .datatable-footer {
+    border-block-start: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.87);
+
+    .datatable-pager {
+      .page-button {
+        color: rgba(255, 255, 255, 0.87);
+
+        &:hover {
+          color: rgba(255, 255, 255, 1);
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        &.active {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        &:disabled {
+          color: rgba(255, 255, 255, 0.26);
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .datatable-summary-row {
+    .datatable-body-row {
+      background-color: $gray-700;
+
+      &:hover {
+        background-color: $gray-600;
+      }
+    }
+  }
+}
+
+.tooltip {
+  --bs-tooltip-color: #fff;
+}
+
+
+.bg-light {
+  background-color: #04272f !important;
+}
+
+
+.app-component {
+  .login-container .form-check-input {
+    border-color: var(--bs-body-color);
+  }
+
+  footer {
+    background-color: #073642 !important;
+  }
+}
+
+.about-page {
+  .bg-features {
+    .logo {
+      color: #073642 !important;
+    }
+  }
+}
