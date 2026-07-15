@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="QuickApp.Product.Contracts/QuickApp.Product.Contracts.csproj" />
+  <Project Path="QuickApp.Product.Service/QuickApp.Product.Service.csproj" />
+  <Project Path="QuickApp.Product.Tests/QuickApp.Product.Tests.csproj" />
+</Solution>
