@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>10.21.0</Version>
+    <Company>www.ebenmonney.com</Company>
+    <Authors>$(Company)</Authors>
+    <Description>Standalone Customer service skeleton with a deterministic in-memory stub implementation.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QuickApp.Customer.Contracts\QuickApp.Customer.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
