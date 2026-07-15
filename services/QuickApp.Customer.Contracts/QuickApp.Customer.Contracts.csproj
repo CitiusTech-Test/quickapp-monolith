@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>10.21.0</Version>
+    <Company>www.ebenmonney.com</Company>
+    <Authors>$(Company)</Authors>
+    <Description>Public contracts (DTOs, requests, events, service interface) for the standalone Customer service.</Description>
+  </PropertyGroup>
+
+</Project>
