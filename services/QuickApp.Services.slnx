@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="QuickApp.Identity.Contracts/QuickApp.Identity.Contracts.csproj" />
+  <Project Path="QuickApp.Identity.Service/QuickApp.Identity.Service.csproj" />
+  <Project Path="QuickApp.Identity.Tests/QuickApp.Identity.Tests.csproj" />
+</Solution>
