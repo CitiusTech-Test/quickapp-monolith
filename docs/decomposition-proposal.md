@@ -263,3 +263,19 @@ This POC can be generalized across similar repositories using the following repe
 10. Feed outcomes, exceptions and review decisions back into a parameterized Devin playbook.
 
 Parameters for a scalable playbook should include repository, base branch, technology stack, target service names, required project naming, data-store strategy, frontend architecture, test commands and PR policy. The playbook should require human approval for service ownership, distributed transaction design, security boundaries and irreversible data cutover.
+
+## POC extraction results
+
+| Service | Extraction PR | Key owned entities/capabilities | Coupling points requiring review |
+| --- | --- | --- | --- |
+| Identity | [PR #12](https://github.com/CitiusTech-Test/quickapp-monolith/pull/12) | `ApplicationUser`, `ApplicationRole`, `ApplicationPermission`, credentials, claims, OpenIddict token issuance | `Order.Cashier`; shared `ApplicationDbContext`; audit actor claims; centralized permission registration |
+| Customer | [PR #9](https://github.com/CitiusTech-Test/quickapp-monolith/pull/9) | `Customer` profile, contact and address data | `Customer.Orders`; eager Customer-to-Order/Product/Cashier graph; `CustomerVM.Orders`; direct email call; shared context/seeder/mapping |
+| Product | [PR #8](https://github.com/CitiusTech-Test/quickapp-monolith/pull/8) | `Product`, `ProductCategory`, catalog, price and inventory lookup | `OrderDetail.Product`; checkout price/inventory consistency; shared context and seeding |
+| Order | [PR #11](https://github.com/CitiusTech-Test/quickapp-monolith/pull/11) | `Order`, `OrderDetail`, lifecycle, line and customer/product/cashier snapshots | Customer/Product lookup adapters; snapshot policy; inventory reservation; durable `OrderPlaced`; no distributed transaction |
+| Notification | [PR #10](https://github.com/CitiusTech-Test/quickapp-monolith/pull/10) | Delivery requests/status, channels, templates, recipient model and in-app records | SMTP adapter; durable retries; preferences; event schema ownership; replacement of Angular demo data |
+
+All five PRs are additive, target `modernization-poc`, and include passing unit tests. They deliberately do not rewire the monolith.
+
+### Integration warning
+
+Every extraction PR updates `QuickApp.sln`. Each PR is independently mergeable against the current base, but merging one changes the shared solution file and may create clerical conflicts for the remaining PRs. Reconcile all distinct project entries and configuration rows rather than choosing one side wholesale.
