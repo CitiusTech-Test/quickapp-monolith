@@ -96,7 +96,18 @@ namespace QuickApp.Product.Service
 
         public Task<bool> DeleteProductAsync(int id)
         {
-            return Task.FromResult(_products.Remove(id));
+            if (!_products.Remove(id))
+                return Task.FromResult(false);
+
+            // Detach any children so they are not left pointing at a now-missing parent.
+            foreach (var child in _products.Values.Where(p => p.ParentId == id))
+            {
+                child.ParentId = null;
+                child.Parent = null;
+                child.UpdatedDate = DateTime.UtcNow;
+            }
+
+            return Task.FromResult(true);
         }
 
         public Task<ProductDto?> AdjustStockAsync(int id, int delta)

@@ -143,6 +143,32 @@ namespace QuickApp.Product.Tests
         }
 
         [Fact]
+        public async Task DeleteParent_DetachesChildren_AndChildRemainsUpdatable()
+        {
+            var (svc, categoryId) = await NewServiceWithCategoryAsync();
+            var parent = await svc.CreateProductAsync(NewProductRequest(categoryId, "Parent"));
+
+            var childReq = NewProductRequest(categoryId, "Child");
+            childReq.ParentId = parent.Id;
+            var child = await svc.CreateProductAsync(childReq);
+
+            Assert.True(await svc.DeleteProductAsync(parent.Id));
+
+            var refreshedChild = await svc.GetProductByIdAsync(child.Id);
+            Assert.NotNull(refreshedChild);
+            Assert.Null(refreshedChild!.ParentId);
+
+            // Child stays updatable (no orphaned parent reference).
+            var updated = await svc.UpdateProductAsync(child.Id, new UpdateProductRequest
+            {
+                Name = "Child Renamed",
+                ProductCategoryId = categoryId
+            });
+            Assert.NotNull(updated);
+            Assert.Equal("Child Renamed", updated!.Name);
+        }
+
+        [Fact]
         public async Task CreateProduct_Throws_WhenParentMissing()
         {
             var (svc, categoryId) = await NewServiceWithCategoryAsync();
